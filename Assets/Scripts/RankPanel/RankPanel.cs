@@ -80,6 +80,8 @@ public class RankPanel : MonoBehaviour
     private void PopulateItem(RecyclingListViewItem item, int rowIndex)
     {
         var child = item as RankItem;
+        Vector3 childPos = child.gameObject.transform.position;
+        child.gameObject.transform.position = new Vector3(0, childPos.y, childPos.z);
         child.RankData = data[rowIndex];
     }
 
