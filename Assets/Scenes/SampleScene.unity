@@ -789,7 +789,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.7534156}
+  m_AnchorMax: {x: 1, y: 0.7770724}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1138,6 +1138,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UserRankItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655500934980898835, guid: d557af8d6cea74a2fb0fd319bca57275,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5894314408948981421, guid: d557af8d6cea74a2fb0fd319bca57275,
         type: 3}
@@ -1822,7 +1827,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 496402966}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.7534156
+  m_Size: 0.7770724
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2093,7 +2098,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 577.02423}
+  m_AnchoredPosition: {x: 0, y: 577.00024}
   m_SizeDelta: {x: 0, y: 1154.0001}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1350889704
@@ -3321,10 +3326,6 @@ MonoBehaviour:
   userNameText: {fileID: 95602935863868318}
   trophyText: {fileID: 967020845}
   rankPanel: {fileID: 0}
-  rankListImage: []
-  rankIconImageList: []
-  userRankImageList: []
-  rankAvatarImageList: []
 --- !u!224 &5440126049181205584
 RectTransform:
   m_ObjectHideFlags: 0

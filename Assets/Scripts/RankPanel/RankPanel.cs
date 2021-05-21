@@ -27,6 +27,7 @@ public class RankPanel : MonoBehaviour
     private int seasonID;
     private int selfRank;
 
+
     private string ChangeSecondsToDate(int time)
     {
         /// <summary>
@@ -60,9 +61,12 @@ public class RankPanel : MonoBehaviour
         myNameText.text = data[selfRank - 1].NickName;
         myTrophyText.text = data[selfRank - 1].Trophy.ToString();
     }
+    
+
 
     private void Start()
     {
+        RankItem.Load();
         data = loadJson.LoadJsonToRankItem();
         rankSeasonCountDown = loadJson.GetRankSeasonCountDown();
         seasonID = loadJson.GetSeasonID();

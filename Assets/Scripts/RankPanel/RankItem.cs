@@ -16,12 +16,21 @@ public class RankItem : RecyclingListViewItem
     [SerializeField] private Text trophyText;
 
     [SerializeField] private RankPanel rankPanel;
-    
-    [SerializeField] private List<Sprite> rankListImage = new List<Sprite>();
-    [SerializeField] private List<Sprite> rankIconImageList = new List<Sprite>();
-    [SerializeField] private List<Sprite> userRankImageList = new List<Sprite>();
-    [SerializeField] private List<Sprite> rankAvatarImageList = new List<Sprite>();
+    static public Sprite[] rankListImage;
+    static public Sprite[] rankIconImageList;
+    static public Sprite[] userRankImageList = new Sprite[14];
+    static public Sprite[] rankAvatarImageList;
 
+    static public void Load()
+    {
+        rankListImage = Resources.LoadAll<Sprite>("Image/Rank_List");
+        rankIconImageList = Resources.LoadAll<Sprite>("Image/icon_rank");
+        for (int i = 0; i < 14; i++)
+        {
+            userRankImageList[i] = Resources.Load<Sprite>("Image/Rank/arenaBadge_" + (i + 1));
+        }
+        rankAvatarImageList = Resources.LoadAll<Sprite>("Image/avatar");
+    }
     public struct RankChildData
     {
         public string UserID;
@@ -38,26 +47,6 @@ public class RankItem : RecyclingListViewItem
         }
     }
 
-    private void LoadAllImage()
-    {
-        for (int amount = 1; amount <= 4; amount++)
-        {
-            rankListImage.Add(rankBackGround.sprite = Resources.Load<Sprite>("/Image/rank list_" + amount));
-        }
-        for (int amount = 1; amount <= 4; amount++)
-        {
-            rankIconImageList.Add(rankBackGround.sprite = Resources.Load<Sprite>(Application.dataPath + "/Resources/Image/icon_rank_" + amount));
-        }
-        for (int amount = 1; amount <= 14; amount++)
-        {
-            userRankImageList.Add(rankBackGround.sprite = Resources.Load<Sprite>(Application.dataPath + "/Resources/Image/Rank/arenaBadge_" + amount));
-        }
-        for (int amount = 1; amount <= 4; amount++)
-        {
-            rankAvatarImageList.Add(rankBackGround.sprite = Resources.Load<Sprite>(Application.dataPath + "/Resources/Image/avatar_" + amount));
-        }
-    }
-
     private RankChildData rankData;
 
     public RankChildData RankData
@@ -69,17 +58,23 @@ public class RankItem : RecyclingListViewItem
             // 设置排名和相应的背景图片
             if (rankData.Rank < 4)
             {
+                rankImage.gameObject.SetActive(true);
+                rankText.gameObject.SetActive(false);
                 rankBackGround.sprite = rankListImage[rankData.Rank - 1];
                 rankImage.sprite = rankIconImageList[rankData.Rank - 1];
                 rankAvatarImage.sprite = rankAvatarImageList[rankData.Rank - 1];
+                rankImage.SetNativeSize();
             }
             else
             {
                 rankBackGround.sprite = rankListImage[3];
-                rankImage.sprite = rankIconImageList[3];
+                // rankImage.sprite = rankIconImageList[3];
+                rankImage.gameObject.SetActive(false);
+                rankText.gameObject.SetActive(true);
                 rankAvatarImage.sprite = rankAvatarImageList[3];
+                rankText.text = rankData.Rank.ToString();
             }
-            rankText.text = rankData.Rank.ToString();
+            
             // 设置用户昵称
             userNameText.text = rankData.NickName;
             // 根据奖杯计算段位
