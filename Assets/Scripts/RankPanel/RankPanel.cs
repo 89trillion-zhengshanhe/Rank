@@ -10,6 +10,7 @@ public class RankPanel : MonoBehaviour
     [SerializeField] private GameObject rankPanel;
     [SerializeField] private ToastPanel toastPanel;
     [SerializeField] private GameObject startButton;
+
     [SerializeField] private RecyclingListView theList;
 
     // 自己的Rank信息
@@ -22,17 +23,34 @@ public class RankPanel : MonoBehaviour
     // RankPanel内的Title信息
     [SerializeField] private Text rankSeasonText;
     [SerializeField] private Text countDownText;
-    private LoadJson loadJson = new LoadJson();
+    private LoadJson loadJson = new LoadJson(); 
+    
+    public static Sprite[] rankListImage;
+    public static Sprite[] rankIconImageList;
+    public static Sprite[] userRankImageList = new Sprite[14];
+    public static Sprite[] rankAvatarImageList;
+
     static int rankSeasonCountDown;
     private int seasonID;
     private int selfRank;
 
+    static public void LoadResources()
+    {
+        rankListImage = Resources.LoadAll<Sprite>("Image/Rank_List");
+        rankIconImageList = Resources.LoadAll<Sprite>("Image/icon_rank");
+        for (int i = 0; i < 14; i++)
+        {
+            userRankImageList[i] = Resources.Load<Sprite>("Image/Rank/arenaBadge_" + (i + 1));
+        }
 
+        rankAvatarImageList = Resources.LoadAll<Sprite>("Image/avatar");
+    }
+
+    /// <summary>
+    /// 把秒格式化为DateTime格式
+    /// </summary> 
     private string ChangeSecondsToDate(int time)
     {
-        /// <summary>
-        /// 把秒格式化为DateTime格式
-        /// </summary> 
         var timeSpan = TimeSpan.FromSeconds(time);
         string days = string.Format("{0:D2}", timeSpan.Days);
         string hours = string.Format("{0:D2}", timeSpan.Hours);
@@ -42,31 +60,28 @@ public class RankPanel : MonoBehaviour
         return date;
     }
 
+    /// <summary>
+    /// 加载赛季信息并开启倒计时
+    /// </summary>
     private void CreateRankTitle(int seasonID)
     {
-        /// <summary>
-        /// 加载赛季信息并开启倒计时
-        /// </summary>
-        
         rankSeasonText.text = "Season " + seasonID.ToString() + " Ranking";
         StartCoroutine(CountDown());
     }
 
+    /// <summary>
+    /// 显示用户自己的赛季排名信息
+    /// </summary>
     private void LoadMyRank(int selfRank)
     {
-        /// <summary>
-        /// 显示用户自己的赛季排名信息
-        /// </summary>
         myRankText.text = (selfRank).ToString();
         myNameText.text = data[selfRank - 1].NickName;
         myTrophyText.text = data[selfRank - 1].Trophy.ToString();
     }
-    
-
 
     private void Start()
     {
-        RankItem.Load();
+        LoadResources();
         data = loadJson.LoadJsonToRankItem();
         rankSeasonCountDown = loadJson.GetRankSeasonCountDown();
         seasonID = loadJson.GetSeasonID();
